@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="form.StockForm">
+  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="10" bottom="10" right="10"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <preferredSize width="800" height="600"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="f7ae2" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="10" left="10" bottom="10" right="10"/>
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="etched"/>
+        <children>
+          <component id="a0e54" class="javax.swing.JButton" binding="editarButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="100" height="40"/>
+                <maximum-size width="100" height="40"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="Editar"/>
+            </properties>
+          </component>
+          <component id="a9320" class="javax.swing.JButton" binding="eliminarButton" default-binding="true">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="100" height="40"/>
+                <maximum-size width="100" height="40"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="Eliminar"/>
+            </properties>
+          </component>
+          <vspacer id="78106">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <scrollpane id="76c04">
+            <constraints>
+              <grid row="0" column="0" row-span="4" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <autoscrolls value="false"/>
+              <focusTraversalPolicyProvider value="false"/>
+              <focusable value="true"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="e6f28" class="javax.swing.JTable" binding="dataTable">
+                <constraints/>
+                <properties>
+                  <autoCreateColumnsFromModel value="true"/>
+                  <autoResizeMode value="0"/>
+                  <cellSelectionEnabled value="false"/>
+                  <columnSelectionAllowed value="false"/>
+                  <editingColumn value="-1"/>
+                  <enabled value="true"/>
+                  <font/>
+                  <intercellSpacing width="1" height="3"/>
+                  <rowHeight value="18"/>
+                  <rowMargin value="3"/>
+                  <rowSelectionAllowed value="true"/>
+                  <surrendersFocusOnKeystroke value="false"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+        </children>
+      </grid>
+      <grid id="79c9c" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="20" left="0" bottom="20" right="0"/>
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="339c1" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="262" height="13"/>
+              </grid>
+            </constraints>
+            <properties>
+              <font size="24"/>
+              <labelFor value="76c04"/>
+              <text value="Inventario de vehículos"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <vspacer id="81229">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+    </children>
+  </grid>
+</form>
