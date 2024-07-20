@@ -4,7 +4,7 @@ Una concecionaria de vehículos necesita de un sistema que le permita realizar u
 Se requiere realizar un modelado correspondiente vehículo teniendo en cuenta campos como: id, modelo, marca, motor, color, patente, cantidad de puertas. 
 La app debe para permitir realizar las operaciones CRUD para cada vehículo.
 
-**IMPORTANTE**: Este proyecto fue desarrollado respetar el modelo de capas, separando la responsabilidad de cada una de ellas: lógica, interfaz gráfica y persistencia.
+**IMPORTANTE**: Este proyecto fue desarrollado respetando el modelo de capas, separando la responsabilidad de cada una de ellas: lógica, interfaz gráfica y persistencia.
 
 ## Tecnologías
 
