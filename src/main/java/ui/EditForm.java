@@ -1,51 +1,62 @@
-package form;
+package ui;
 
 import controller.VehicleController;
+import lombok.Getter;
+import lombok.Setter;
 import model.Vehicle;
-import model.VehicleMake;
+import model.VehicleBrand;
 import model.VehicleType;
+import ui.utility.EnumComboBox;
+import ui.utility.UIMediator;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 
+import static ui.utility.FieldsSetup.setVehicleFields;
+
+@Getter
 public class EditForm extends JFrame {
+
     private JTextField licensePlateField;
     private JTextField colorField;
     private JTextField engineField;
     private JTextField modelField;
     private JComboBox<Integer> doorsComboBox;
     private JComboBox<VehicleType> typeComboBox;
-    private JComboBox<VehicleMake> makeComboBox;
+    private JComboBox<VehicleBrand> brandComboBox;
     private JButton cancelarButton;
     private JButton guardarButton;
     private JPanel contentPane;
 
-    private VehicleController controller;
-    private Vehicle vehicle;
+    UIMediator mediator;
+    VehicleController controller;
+    Vehicle vehicle;
 
-    public EditForm(Long id) {
+    public EditForm(UIMediator mediator, VehicleController controller) {
+        this.mediator = mediator;
+        this.controller = controller;
         setContentPane(contentPane);
         setResizable(false);
         pack();
 
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowOpened(WindowEvent e) {
-                loadData(id);
+            public void windowClosing(WindowEvent e) {
+                mediator.showStockForm();
             }
         });
 
-        // HACER VISIBLE StockForm CUANDO SE CIERRA LA VENTANA
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) {
-                stockFormWindows();
+            public void windowOpened(WindowEvent e) {
+                setVehicleFields(vehicle, EditForm.this);
             }
         });
 
-        addItemsToComboBox();
+        EnumComboBox.setupEnumComboBox(typeComboBox, VehicleType.class);
+        EnumComboBox.setupEnumComboBox(brandComboBox, VehicleBrand.class);
 
         // BOTÓN GUARDAR
         guardarButton.addActionListener(e -> {
@@ -55,41 +66,17 @@ public class EditForm extends JFrame {
             String model = modelField.getText().toUpperCase();
             String doors = String.valueOf(doorsComboBox.getSelectedItem());
             String type = String.valueOf(typeComboBox.getSelectedItem());
-            String make = String.valueOf(makeComboBox.getSelectedItem());
+            String make = String.valueOf(brandComboBox.getSelectedItem());
 
             var fields = List.of(licensePlate, color, engine, model, doors, type, make);
             if (RegistrationForm.validateEmptyFields(fields)) {
                 controller.updateVehicle(vehicle, make, type, doors, model, engine, color, licensePlate);
                 JOptionPane.showMessageDialog(null, "Registro actualizado exitosamente");
                 dispose();
-                stockFormWindows();
+                mediator.showStockForm();
             }
         });
-        cancelarButton.addActionListener(e -> loadData(id));
-    }
-
-    // CARGAR DATOS AL FORMULARIO
-    private void loadData(Long id) {
-        this.controller = new VehicleController();
-        this.vehicle = controller.findVehicleById(id);
-        licensePlateField.setText(vehicle.getLicensePlate());
-        colorField.setText(vehicle.getColor());
-        engineField.setText(vehicle.getEngine());
-        modelField.setText(vehicle.getModel());
-        makeComboBox.setSelectedItem(vehicle.getMake());
-        typeComboBox.setSelectedItem(vehicle.getType());
-        doorsComboBox.setSelectedItem(vehicle.getDoorCount());
-    }
-
-    public void addItemsToComboBox() {
-        RegistrationForm.addItems(makeComboBox, typeComboBox, doorsComboBox);
-    }
-
-    private void stockFormWindows() {
-        StockForm stockForm = new StockForm();
-        // POSICIÓN de StockForm AL CERRAR VENTANA
-        stockForm.setLocationRelativeTo(contentPane);
-        stockForm.setVisible(true);
+        cancelarButton.addActionListener(e -> setVehicleFields(vehicle, EditForm.this));
     }
 }
 

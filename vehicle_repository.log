@@ -306,3 +306,17 @@
 
 [2024-07-19 22:20:58] INFO: VehicleRepository closed successfully
 
+[2024-07-19 22:37:53] INFO: VehicleRepository initialized successfully
+
+[2024-07-19 22:37:53] INFO: VehicleRepository closed successfully
+
+[2024-07-20 16:00:18] INFO: VehicleRepository initialized successfully
+
+[2024-07-20 16:00:18] INFO: Retrieved 20 vehicles
+
+[2024-07-20 16:00:30] INFO: Vehicle successfully removed: (ID: 10, MARCA: HYUNDAI, MODELO: 'Tucson', MOTOR: '2.5L I4', COLOR: 'Verde', TIPO: CROSSOVER, PATENTE: 'KLMN90', PUERTAS: 5, 2024-01-25)
+
+[2024-07-20 16:00:32] INFO: Retrieved 19 vehicles
+
+[2024-07-20 16:00:37] INFO: VehicleRepository closed successfully
+

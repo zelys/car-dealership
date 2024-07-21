@@ -1,56 +1,63 @@
 package controller;
 
+
 import model.Vehicle;
-import model.VehicleMake;
-import model.VehicleType;
+import service.VehicleService;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class VehicleController {
+    private VehicleService vehicleService;
 
-    public static PersistenceController persistence = new PersistenceController();
+    public VehicleController(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
+    }
 
-    public void save(String make, String type, String doors, String model, String engine, String color, String licensePlate) {
+    public void createVehicle(String brand, String model, String engine, String type, String color ,String doorCount, String licensePlate) {
         Vehicle vehicle = new Vehicle();
-        setVehicle(vehicle, make, type, doors, model, engine, color, licensePlate);
-
-        persistence.save(vehicle);
-    }
-
-    public Boolean existLicensePlate(String licensePlate) {
-        return persistence.existLicensePlate(licensePlate);
-    }
-
-    public List<Vehicle> findAllVehicle() {
-        return persistence.findAllVehicle();
-    }
-
-    public void updateVehicle(Vehicle vehicle, String make, String type, String doors, String model, String engine, String color, String licensePlate) {
-        setVehicle(vehicle, make, type, doors, model, engine, color, licensePlate);
-        persistence.updateVehicle(vehicle);
-    }
-
-    public Vehicle findVehicleById(Long id) {
-        return persistence.findVehicleById(id);
-    }
-
-    public void deleteVehicleById(Long id) {
-        persistence.deleteVehicleById(id);
-    }
-
-    public static void closeConnection() {
-        persistence.closeConnection();
-    }
-
-    private void setVehicle(Vehicle vehicle, String make, String type, String doors, String model, String engine, String color, String licensePlate) {
-        vehicle.setMake(VehicleMake.valueOf(make));
-        vehicle.setType(VehicleType.valueOf(type));
-        vehicle.setDoorCount(doors);
+        vehicle.setBrand(brand);
         vehicle.setModel(model);
         vehicle.setEngine(engine);
+        vehicle.setType(type);
         vehicle.setColor(color);
+        vehicle.setDoorCount(doorCount);
         vehicle.setLicensePlate(licensePlate);
-        vehicle.setModified(LocalDate.now());
+        vehicleService.createVehicle(vehicle);
+    }
+
+    public Vehicle getVehicle(Long id) {
+        return vehicleService.getVehicle(id);
+    }
+
+    public List<Vehicle> getAllVehicles() {
+        return vehicleService.getAllVehicles();
+    }
+
+    public void updateVehicle(Vehicle vehicle, String brand, String model, String engine, String type, String color ,String doorCount, String licensePlate) {
+        if (vehicle != null) {
+            vehicle.setBrand(brand);
+            vehicle.setModel(model);
+            vehicle.setLicensePlate(licensePlate);
+            vehicle.setType(type);
+            vehicle.setColor(color);
+            vehicle.setDoorCount(doorCount);
+            vehicle.setEngine(engine);
+            vehicle.setModified(LocalDate.now());
+            vehicleService.updateVehicle(vehicle);
+        }
+    }
+
+    public void deleteVehicle(Long id) {
+        Vehicle vehicle = vehicleService.getVehicle(id);
+        if (vehicle != null) {
+            vehicleService.deleteVehicle(vehicle);
+        }
+    }
+
+
+    public boolean hasPlatesDuplicated(String licensePlate, List<Vehicle> allVehicles) {
+        return allVehicles.stream()
+                .anyMatch(v -> v.getLicensePlate().equals(licensePlate));
     }
 }

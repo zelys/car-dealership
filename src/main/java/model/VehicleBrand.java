@@ -1,6 +1,6 @@
 package model;
 
-public enum VehicleMake {
+public enum VehicleBrand {
     TOYOTA,
     HONDA,
     FORD,
@@ -16,5 +16,4 @@ public enum VehicleMake {
     MAZDA,
     LEXUS,
     JEEP
-
 }

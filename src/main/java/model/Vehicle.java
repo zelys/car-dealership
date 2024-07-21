@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "licensePlate")
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +19,7 @@ public class Vehicle {
 
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
-    private VehicleMake make;
+    private VehicleBrand brand;
 
     @Column(length = 20)
     private String model;
@@ -44,10 +45,18 @@ public class Vehicle {
         this.doorCount = Integer.parseInt(doorCount);
     }
 
+    public void setType(String type) {
+        this.type = VehicleType.valueOf(type);
+    }
+
+    public void setBrand(String brand) {
+        this.brand = VehicleBrand.valueOf(brand);
+    }
+
     @Override
     public String toString() {
         return "(ID: " + id +
-                ", MARCA: " + make +
+                ", MARCA: " + brand +
                 ", MODELO: '" + model + '\'' +
                 ", MOTOR: '" + engine + '\'' +
                 ", COLOR: '" + color + '\'' +
