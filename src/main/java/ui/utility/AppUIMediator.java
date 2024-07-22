@@ -21,10 +21,10 @@ public class AppUIMediator implements UIMediator {
     private StockForm stockForm;
     private EditForm editForm;
     private Vehicle selectedVehicle;
-    VehicleController vehicleController;
+    private final VehicleController controller;
 
     public AppUIMediator(VehicleController vehicleController) {
-        this.vehicleController = vehicleController;
+        this.controller = vehicleController;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AppUIMediator implements UIMediator {
     @Override
     public void showRegistrationForm() {
         if (regForm == null) {
-            regForm = new RegistrationForm(this, vehicleController);
+            regForm = new RegistrationForm(this, controller);
         }
         regForm.setLocationRelativeTo(mainForm);
         regForm.setVisible(true);
@@ -58,7 +58,7 @@ public class AppUIMediator implements UIMediator {
     @Override
     public void showStockForm() {
         if (stockForm == null) {
-            stockForm = new StockForm(this, vehicleController);
+            stockForm = new StockForm(this, controller);
         }
         stockForm.setLocationRelativeTo(mainForm);
         stockForm.setVisible(true);
@@ -73,7 +73,7 @@ public class AppUIMediator implements UIMediator {
     @Override
     public void showEditForm() {
         if (editForm == null) {
-            editForm = new EditForm(this, vehicleController);
+            editForm = new EditForm(this, controller);
         }
         editForm.setVehicle(selectedVehicle);
         editForm.setLocationRelativeTo(stockForm);
@@ -93,7 +93,7 @@ public class AppUIMediator implements UIMediator {
 
     @Override
     public void reloadVehicleTable() {
-        loadVehicleTable(stockForm.getDataTable(), vehicleController.getAllVehicles());
+        loadVehicleTable(stockForm.getDataTable(), controller.getAllVehicles());
     }
 
     @Override
@@ -130,9 +130,9 @@ public class AppUIMediator implements UIMediator {
                     regForm.getEngineField(),
                     regForm.getColorField(),
                     regForm.getLicensePlateField());
-            boolean plateExists = vehicleController.hasPlatesDuplicated(getStringFields(regForm.getLicensePlateField()));
+            boolean plateExists = controller.hasPlatesDuplicated(getStringFields(regForm.getLicensePlateField()));
             if (!plateExists) {
-                vehicleController.createVehicle(vehicle);
+                controller.createVehicle(vehicle);
                 messages("Se ha registrado un nuevo vehiculo", regForm.getContentPane());
             } else {
                 messages("La placa patente ingresada, ya existe en el sistema", regForm.getContentPane());
@@ -154,7 +154,7 @@ public class AppUIMediator implements UIMediator {
                     editForm.getColorField(),
                     editForm.getLicensePlateField());
             vehicle.setModified(LocalDate.now());
-            vehicleController.updateVehicle(vehicle);
+            controller.updateVehicle(vehicle);
             messages("Vehiculo modificado exitosamente", editForm.getContentPane());
         } else {
             messages("Error al actualizar el vehiculo", editForm.getContentPane());
