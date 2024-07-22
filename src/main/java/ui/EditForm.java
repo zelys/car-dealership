@@ -6,15 +6,14 @@ import lombok.Setter;
 import model.Vehicle;
 import model.VehicleBrand;
 import model.VehicleType;
-import ui.utility.EnumComboBox;
 import ui.utility.UIMediator;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.List;
 
-import static ui.utility.FieldsSetup.setVehicleFields;
+import static ui.utility.EnumComboBox.setupDoorCount;
+import static ui.utility.EnumComboBox.setupEnumComboBox;
 
 @Getter
 public class EditForm extends JFrame {
@@ -27,11 +26,12 @@ public class EditForm extends JFrame {
     private JComboBox<VehicleType> typeComboBox;
     private JComboBox<VehicleBrand> brandComboBox;
     private JButton cancelarButton;
-    private JButton guardarButton;
+    private JButton actualizarButton;
     private JPanel contentPane;
 
     UIMediator mediator;
     VehicleController controller;
+    @Setter
     Vehicle vehicle;
 
     public EditForm(UIMediator mediator, VehicleController controller) {
@@ -45,38 +45,31 @@ public class EditForm extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 mediator.showStockForm();
+
             }
         });
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-                setVehicleFields(vehicle, EditForm.this);
+                mediator.setVehicleFields();
             }
         });
 
-        EnumComboBox.setupEnumComboBox(typeComboBox, VehicleType.class);
-        EnumComboBox.setupEnumComboBox(brandComboBox, VehicleBrand.class);
+       setupEnumComboBox(typeComboBox, VehicleType.class);
+       setupEnumComboBox(brandComboBox, VehicleBrand.class);
+       setupDoorCount(doorsComboBox);
 
         // BOTÓN GUARDAR
-        guardarButton.addActionListener(e -> {
-            String licensePlate = licensePlateField.getText().toUpperCase();
-            String color = colorField.getText().toUpperCase();
-            String engine = engineField.getText().toUpperCase();
-            String model = modelField.getText().toUpperCase();
-            String doors = String.valueOf(doorsComboBox.getSelectedItem());
-            String type = String.valueOf(typeComboBox.getSelectedItem());
-            String make = String.valueOf(brandComboBox.getSelectedItem());
-
-            var fields = List.of(licensePlate, color, engine, model, doors, type, make);
-            if (RegistrationForm.validateEmptyFields(fields)) {
-                controller.updateVehicle(vehicle, make, type, doors, model, engine, color, licensePlate);
-                JOptionPane.showMessageDialog(null, "Registro actualizado exitosamente");
-                dispose();
-                mediator.showStockForm();
-            }
+        actualizarButton.addActionListener(e -> {
+            mediator.vehicleUpdate(vehicle);
+            mediator.showStockForm();
+            mediator.reloadVehicleTable();
+            dispose();
         });
-        cancelarButton.addActionListener(e -> setVehicleFields(vehicle, EditForm.this));
+
+        // BOTÓN CANCELAR
+        cancelarButton.addActionListener(e -> mediator.setVehicleFields());
     }
 }
 

@@ -14,15 +14,7 @@ public class VehicleController {
         this.vehicleService = vehicleService;
     }
 
-    public void createVehicle(String brand, String model, String engine, String type, String color ,String doorCount, String licensePlate) {
-        Vehicle vehicle = new Vehicle();
-        vehicle.setBrand(brand);
-        vehicle.setModel(model);
-        vehicle.setEngine(engine);
-        vehicle.setType(type);
-        vehicle.setColor(color);
-        vehicle.setDoorCount(doorCount);
-        vehicle.setLicensePlate(licensePlate);
+    public void createVehicle(Vehicle vehicle) {
         vehicleService.createVehicle(vehicle);
     }
 
@@ -34,18 +26,8 @@ public class VehicleController {
         return vehicleService.getAllVehicles();
     }
 
-    public void updateVehicle(Vehicle vehicle, String brand, String model, String engine, String type, String color ,String doorCount, String licensePlate) {
-        if (vehicle != null) {
-            vehicle.setBrand(brand);
-            vehicle.setModel(model);
-            vehicle.setLicensePlate(licensePlate);
-            vehicle.setType(type);
-            vehicle.setColor(color);
-            vehicle.setDoorCount(doorCount);
-            vehicle.setEngine(engine);
-            vehicle.setModified(LocalDate.now());
-            vehicleService.updateVehicle(vehicle);
-        }
+    public void updateVehicle(Vehicle vehicle) {
+        vehicleService.updateVehicle(vehicle);
     }
 
     public void deleteVehicle(Long id) {
@@ -56,7 +38,8 @@ public class VehicleController {
     }
 
 
-    public boolean hasPlatesDuplicated(String licensePlate, List<Vehicle> allVehicles) {
+    public boolean hasPlatesDuplicated(String licensePlate) {
+        List<Vehicle> allVehicles = vehicleService.getAllVehicles();
         return allVehicles.stream()
                 .anyMatch(v -> v.getLicensePlate().equals(licensePlate));
     }

@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = "licensePlate")
 public class Vehicle {
     @Id

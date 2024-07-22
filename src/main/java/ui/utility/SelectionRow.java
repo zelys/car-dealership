@@ -2,7 +2,7 @@ package ui.utility;
 
 import javax.swing.*;
 
-public class SelectionRowUtil {
+public class SelectionRow {
 
     public static Long rowSelection(JTable table) {
         // OBTENER ID DE LA FILA SELECCIONADA

@@ -9,13 +9,11 @@ public class MainForm extends JFrame {
     private JButton registrarButton;
     private JButton inventarioButton;
     private JButton salirButton;
-    private UIMediator mediator;
 
     private RegistrationForm registrationForm;
     private StockForm stockForm;
 
     public MainForm(UIMediator mediator) {
-        this.mediator = mediator;
         setContentPane(contentPane);
         setResizable(false);
         pack();

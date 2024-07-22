@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class TableLoaderUtil {
+public class TableLoader {
 
     public static void loadVehicleTable(JTable dataTable, List <Vehicle> vehicles) {
         DefaultTableModel tableModel = new DefaultTableModel() {

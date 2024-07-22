@@ -1,16 +1,19 @@
 package ui;
 
 import controller.VehicleController;
-import ui.utility.SelectionRowUtil;
-import ui.utility.TableLoaderUtil;
+import lombok.Getter;
+import model.Vehicle;
+import ui.utility.SelectionRow;
 import ui.utility.UIMediator;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+
 public class StockForm extends JFrame {
     private JPanel contentPane;
+    @Getter
     private JTable dataTable;
     private JButton editarButton;
     private JButton eliminarButton;
@@ -25,11 +28,10 @@ public class StockForm extends JFrame {
         setResizable(false);
         pack();
 
-
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-                TableLoaderUtil.loadVehicleTable(dataTable, controller.getAllVehicles());
+                mediator.reloadVehicleTable();
             }
         });
 
@@ -42,19 +44,22 @@ public class StockForm extends JFrame {
 
         // BOTÓN EDITAR
         editarButton.addActionListener(e -> {
-            Long id = SelectionRowUtil.rowSelection(dataTable);
+            Long id = SelectionRow.rowSelection(dataTable);
             if (id != null) {
+                Vehicle selectedVehicle = controller.getVehicle(id);
+                mediator.setSelectedVehicle(selectedVehicle);
                 mediator.showEditForm();
+                mediator.setVehicleFields();
             }
         });
 
         // BOTÓN BORRAR
         eliminarButton.addActionListener(e -> {
-            Long id = SelectionRowUtil.rowSelection(dataTable);
+            Long id = SelectionRow.rowSelection(dataTable);
             if (id != null) {
                 controller.deleteVehicle(id);
-                JOptionPane.showMessageDialog(contentPane, "Vehiculo eliminado exitosamente!");
-                TableLoaderUtil.loadVehicleTable(dataTable, controller.getAllVehicles());
+                mediator.messages("Vehiculo eliminado exitosamente!", contentPane);
+                mediator.reloadVehicleTable();
             }
         });
     }

@@ -25,7 +25,7 @@ La app debe para permitir realizar las operaciones CRUD para cada vehículo.
 
 - Tabla vehicles:
 ```sql
-INSERT INTO vehicles (MAKE, MODEL, ENGINE, COLOR, LICENSE_PLATE, TYPE, DOOR_COUNT, MODIFIED, CREATED)
+INSERT INTO vehicles (BRAND, MODEL, ENGINE, COLOR, LICENSE_PLATE, TYPE, DOOR_COUNT, MODIFIED, CREATED)
 VALUES
     ('TOYOTA', 'Corolla', '1.8L I4', 'Rojo', 'ABCD12', 'COMPACT', '4', '2024-05-15', '2024-01-10'),
     ('HONDA', 'Civic', '2.0L I4', 'Azul', 'EFGH34', 'COMPACT', '4', '2024-06-20', '2024-02-05'),

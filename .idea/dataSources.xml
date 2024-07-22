@@ -4,8 +4,8 @@
     <data-source source="LOCAL" name="car_dealership@localhost" uuid="35c5d926-62de-46a0-ba28-98fe26ce06a8">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://$DB_HOST$</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
@@ -14,9 +14,9 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
       <vm-env>
-        <property name="DB_HOST" value="localhost:3306" />
-        <property name="DB_USER" value="root" />
-        <property name="DB_PASSWORD" value="12345678" />
+        <property name="DB_HOST" value="$DB_HOST$" />
+        <property name="DB_USER" value="$DB_USER$" />
+        <property name="DB_PASSWORD" value="$DB_PASSWORD$" />
       </vm-env>
     </data-source>
   </component>
